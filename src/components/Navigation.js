@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
-import { HomeOutlined, LoginOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-const { SubMenu } = Menu;
+const { Item } = Menu;
 const Navigation = () => {
     const [current, setCurrent] = useState('home');
-    const handleClick = () => {
-        // text
+    const handleClick = (e) => {
+
+        setCurrent(e.key)
     }
     return (
-        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-            <Menu.Item key="home" icon={<HomeOutlined />}>
-                Home
-            </Menu.Item>
-
-            <SubMenu key="SubMenu" icon={<LoginOutlined />} title="Login/Register">
-                <Menu.ItemGroup>
-                    <Menu.Item key="setting:1">Login</Menu.Item>
-                    <Menu.Item key="setting:2">Register</Menu.Item>
-                </Menu.ItemGroup>
-            </SubMenu>
-        </Menu>
+        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className='justify-content-center'>
+            <Item key="home" icon={<HomeOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
+                <Link to="/">Home</Link>
+            </Item>
+            <Item key="login" icon={<UserOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}><Link to="/login">Login</Link></Item>
+            <Item key="register" icon={<UserAddOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}><Link to="/registration">Register</Link></Item>
+        </Menu >
     );
 };
 
