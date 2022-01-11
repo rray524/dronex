@@ -57,6 +57,7 @@ const Login = () => {
                 toast.success(
                     `You have been logged in successfully`
                 );
+                // redirect to homepage
                 history.push("/")
             })
             .catch((error) => {
