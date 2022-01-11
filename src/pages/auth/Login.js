@@ -7,6 +7,19 @@ import { toast } from "react-toastify";
 import { loggedInUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+
+const createOrUpdateUser = async (authtoken) => {
+    return await axios.post(
+        `${process.env.REACT_APP_API}/create-or-update-user`,
+        {},
+        {
+            headers: {
+                authtoken,
+            },
+        }
+    );
+};
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -25,16 +38,22 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        console.table(email, password);
+        // console.table(email, password);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
 
                 const user = userCredential.user;
                 console.log(user);
+                // req token to headers 
+                createOrUpdateUser(user.accessToken)
+                    .then((res) => console.log("CREATE OR UPDATE RES", res))
+                    .catch();
+                // redux token
                 dispatch(loggedInUser({
                     email: user.email,
                     tokenId: user.accessToken
                 }))
+                // notification success
                 toast.success(
                     `You have been logged in successfully`
                 );
