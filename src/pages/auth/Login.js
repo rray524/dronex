@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
 import { loggedInUser } from "../../redux/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import { createOrUpdateUser } from "../../functions/auth";
 
-const createOrUpdateUser = async (authtoken) => {
-    return await axios.post(
-        `${process.env.REACT_APP_API}/create-or-update-user`,
-        {},
-        {
-            headers: {
-                authtoken,
-            },
-        }
-    );
-};
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -30,10 +20,18 @@ const Login = () => {
 
     const user = useSelector(state => state.user.loggedInUser);
     useEffect(() => {
-        if (user) {
+        if (user && user.tokenId) {
             history.push("/");
         }
-    }, [user]);
+    }, [user, history]);
+
+    const roleBasedRedirect = (res) => {
+        if (res.data.role === "admin") {
+            history.push("/admin/dashboard");
+        } else {
+            history.push("/user/history");
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,22 +41,29 @@ const Login = () => {
             .then((userCredential) => {
 
                 const user = userCredential.user;
-                console.log(user);
+                // console.log(user);
                 // req token to headers 
                 createOrUpdateUser(user.accessToken)
-                    .then((res) => console.log("CREATE OR UPDATE RES", res))
-                    .catch();
-                // redux token
-                dispatch(loggedInUser({
-                    email: user.email,
-                    tokenId: user.accessToken
-                }))
+                    .then((res) => {
+                        // console.log(res.data);
+                        // redux token
+                        dispatch(loggedInUser({
+                            name: res.data.name,
+                            email: res.data.email,
+                            role: res.data.role,
+                            tokenId: user.accessToken,
+                            _id: res.data._id
+                        }))
+                        roleBasedRedirect(res);
+                    })
+                    .catch((err) => console.log(err));
+
                 // notification success
                 toast.success(
                     `You have been logged in successfully`
                 );
                 // redirect to homepage
-                history.push("/")
+                // history.push("/")
             })
             .catch((error) => {
                 toast.error(error.message);
@@ -72,20 +77,30 @@ const Login = () => {
         signInWithPopup(auth, googleAuthProvider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-
-                dispatch(loggedInUser({
-                    email: user.email,
-                    tokenId: token
-                }))
+                // console.log(user);
+                createOrUpdateUser(user.accessToken)
+                    .then((res) => {
+                        // console.log(res.data);
+                        // redux token
+                        dispatch(loggedInUser({
+                            name: res.data.name,
+                            email: res.data.email,
+                            role: res.data.role,
+                            tokenId: user.accessToken,
+                            _id: res.data._id
+                        }))
+                        roleBasedRedirect(res);
+                    })
+                    .catch((err) => console.log(err));
                 toast.success(
                     `You have been logged in successfully`
                 );
-                history.push("/")
-                // ...
+                // history.push("/")
+
             }).catch((error) => {
                 // Handle Errors here.
                 toast.error(error.code);

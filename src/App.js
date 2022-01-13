@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   BrowserRouter as Router,
@@ -16,21 +16,38 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { loggedInUser } from "./redux/slices/userSlice";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import { currentUser } from "./functions/auth";
+import History from "./pages/user/History";
+import UserRoute from "./components/routes/UserRoute";
+import Wishlist from "./pages/user/Wishlist";
+import Password from "./pages/user/Password";
+import AdminRoute from "./components/routes/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
 function App() {
   const dispatch = useDispatch();
   // check firebase auth state change
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const idTokenResult = user.getIdTokenResult(/* forceRefresh */ false);
-        console.log("user", user, idTokenResult);
-        dispatch(loggedInUser({
-          email: user.email,
-          token: user.accessToken
-        }))
+        // const idTokenResult = user.getIdTokenResult(/* forceRefresh */ false);
+        // console.log("user", user, idTokenResult);
+        currentUser(user.accessToken)
+          .then((res) => {
+            // console.log(res.data);
+            // redux token
+            dispatch(loggedInUser({
+              name: res.data.name,
+              email: res.data.email,
+              role: res.data.role,
+              tokenId: user.accessToken,
+              _id: res.data._id
+            }))
+          })
+          .catch((err) => console.log(err));
       }
     });
-  }, [])
+  }, [dispatch])
   return (
     <Router>
       <Navigation />
@@ -50,6 +67,18 @@ function App() {
         </Route>
         <Route exact path="/registration/complete">
           <CompleteRegistration />
+        </Route>
+        <Route exact path="/user/history">
+          <History />
+        </Route>
+        <Route exact path="/user/password">
+          <Password />
+        </Route>
+        <Route exact path="/user/wishlist">
+          <Wishlist />
+        </Route>
+        <Route exact path="/admin/dashboard">
+          <AdminDashboard />
         </Route>
       </Switch>
     </Router >

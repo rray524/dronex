@@ -13,13 +13,10 @@ const Register = () => {
         if (user) {
             history.push("/");
         }
-    }, [user]);
-    const registerForm = () => <form onSubmit={handleSubmit}>
-        <input type="email" style={{ borderBottom: '1px solid green', borderTop: '0', borderRight: 0, borderLeft: 0, borderRadius: 0 }} className='form-control' placeholder='Enter your email' value={email} onChange={e => setEmail(e.target.value)} autoFocus /><br />
-        <button type="submit" className="btn btn-raised mt-3" style={{ fontSize: '17px' }}>REGISTER</button>
-    </form>
+    }, [user, history]);
 
-    const handleSubmit = async (e) => {
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         const config = {
             url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
@@ -27,7 +24,7 @@ const Register = () => {
         };
 
 
-        await sendSignInLinkToEmail(auth, email, config)
+        sendSignInLinkToEmail(auth, email, config)
             .then(() => {
                 // toast notification to check email for verification
                 toast.success(
@@ -45,6 +42,12 @@ const Register = () => {
 
             });
     }
+
+    const registerForm = () => <form onSubmit={handleSubmit}>
+        <input type="email" style={{ borderBottom: '1px solid green', borderTop: '0', borderRight: 0, borderLeft: 0, borderRadius: 0 }} className='form-control' placeholder='Enter your email' value={email} onChange={e => setEmail(e.target.value)} autoFocus /><br />
+        <button type="submit" className="btn btn-raised mt-3" style={{ fontSize: '17px' }}>REGISTER</button>
+    </form>
+
     return (
         <div className='container p-5'>
             <div className="row">

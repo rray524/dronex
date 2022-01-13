@@ -3,12 +3,17 @@ import { signInWithEmailLink, updatePassword } from "firebase/auth";
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loggedInUser } from '../../redux/slices/userSlice';
+import { createOrUpdateUser } from '../../functions/auth';
+
 
 
 const CompleteRegistration = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
     const history = useHistory();
+    const dispatch = useDispatch();
     useEffect(() => {
         setEmail(window.localStorage.getItem('emailForSignIn'));
     }, [])
@@ -24,7 +29,7 @@ const CompleteRegistration = () => {
         <button type="submit" className="btn btn-raised mt-3" style={{ fontSize: '17px' }}>COMPLETE REGISTRATION</button>
     </form>
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         // validation
@@ -39,14 +44,14 @@ const CompleteRegistration = () => {
         }
 
 
-        await signInWithEmailLink(auth, email, window.location.href)
+        signInWithEmailLink(auth, email, window.location.href)
             .then((result) => {
                 console.log(result);
                 if (result.user.emailVerified) {
                     // remove user email fom local storage
                     window.localStorage.removeItem("emailForSignIn");
                     // get user 
-                    const user = auth.currentUser;
+                    const user = result.user;
                     // update state password
                     updatePassword(user, password).then(() => {
                         // Update successful.
@@ -54,9 +59,22 @@ const CompleteRegistration = () => {
                         // An error ocurred
 
                     });
-                    const idTokenResult = user.getIdTokenResult(/* forceRefresh */ false);
+                    // const idTokenResult = user.getIdTokenResult(/* forceRefresh */ false);
                     // redux store
-                    console.log("user", user, "idTokenResult", idTokenResult, password);
+                    // console.log("user", user, "idTokenResult", idTokenResult, password);
+                    createOrUpdateUser(user.accessToken)
+                        .then((res) => {
+                            // console.log(res.data);
+                            // redux token
+                            dispatch(loggedInUser({
+                                name: user.email.split("@")[0],
+                                email: res.data.email,
+                                role: res.data.role,
+                                tokenId: user.accessToken,
+                                _id: res.data._id
+                            }))
+                        })
+                        .catch((err) => console.log(err));
                     // Logged in successfully message 
                     toast.success(
                         `You have been logged in successfully`

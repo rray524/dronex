@@ -14,7 +14,7 @@ const ForgotPassword = () => {
         if (user) {
             history.push("/");
         }
-    }, [user]);
+    }, [user, history]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
