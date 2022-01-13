@@ -23,6 +23,8 @@ import Wishlist from "./pages/user/Wishlist";
 import Password from "./pages/user/Password";
 import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +81,12 @@ function App() {
         </Route>
         <Route exact path="/admin/dashboard">
           <AdminDashboard />
+        </Route>
+        <Route exact path="/admin/category">
+          <CategoryCreate />
+        </Route>
+        <Route exact path="/admin/category/:slug">
+          <CategoryUpdate />
         </Route>
       </Switch>
     </Router >
