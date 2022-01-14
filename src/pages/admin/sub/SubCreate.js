@@ -115,19 +115,23 @@ const SubCreate = () => {
 
                     {/* step 5 */}
                     {subs.filter(searched(keyword)).map((s) => (
-                        <div className="alert alert-secondary" key={s._id}>
+                        <div className="alert alert-secondary" key={s._id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             {s.name}
-                            <span
-                                onClick={() => handleRemove(s.slug)}
-                                className="btn btn-sm float-right"
-                            >
-                                <DeleteOutlined className="text-danger" />
-                            </span>
-                            <Link to={`/admin/sub/${s.slug}`}>
-                                <span className="btn btn-sm float-right">
-                                    <EditOutlined className="text-warning" />
+                            <div className="sub-category">
+                                <span
+                                    style={{ marginRight: '5px' }}
+                                    onClick={() => handleRemove(s.slug)}
+                                    className="btn btn-sm float-right"
+                                >
+                                    <DeleteOutlined className="text-danger" />
                                 </span>
-                            </Link>
+                                <Link to={`/admin/sub/${s.slug}`}>
+                                    <span className="btn btn-sm float-right">
+                                        <EditOutlined className="text-warning" />
+                                    </span>
+                                </Link>
+                            </div>
+
                         </div>
                     ))}
                 </div>

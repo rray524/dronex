@@ -9,8 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/AdminNav";
-import CategoryForm from "../../../components/forms/CategoryForm"
+import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
+
 
 const CategoryCreate = () => {
     const user = useSelector(state => state.user.loggedInUser);
@@ -77,7 +78,7 @@ const CategoryCreate = () => {
                 <div className="col-md-2">
                     <AdminNav />
                 </div>
-                <div className="col-md-6 col-xs-12">
+                <div className="col">
                     {loading ? (
                         <h4 className="text-danger">Loading..</h4>
                     ) : (
@@ -89,15 +90,15 @@ const CategoryCreate = () => {
                         name={name}
                         setName={setName}
                     />
-                    <hr />
-
+                    <br />
                     {/* step 2 and step 3 */}
                     <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
                     {/* step 5 */}
                     {categories.filter(searched(keyword)).map((c) => (
                         <div className="alert alert-secondary" key={c._id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <h6>{c.name}</h6>
-                            <div className="categories">
+                            {c.name}
+                            <div className="category">
                                 <span
                                     style={{ marginRight: '5px' }}
                                     onClick={() => handleRemove(c.slug)}
