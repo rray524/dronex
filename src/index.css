@@ -6,3 +6,6 @@ li.nav-item a {
   color: black;
   font-weight: 500;
 }
+span.ant-badge {
+  margin: 8px;
+}
