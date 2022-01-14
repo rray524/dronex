@@ -9,9 +9,9 @@ import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
-    title: "Macbook Pro",
-    description: "This is the best Apple product",
-    price: "45000",
+    title: "HILLSTAR Foldable Drone with Dual Camera HD Wide Angle Lens ",
+    description: "It weighs about as much as an apple and fits in the palm of your hand. Compact and convenient, this small drone is your ideal travel companion, transforming how you capture your favorite memories. Visual Hovering Dual Camera Drone with Dual Lights & Powerful motors.",
+    price: "5999",
     categories: [],
     category: "",
     subs: [],
@@ -19,9 +19,9 @@ const initialState = {
     quantity: "50",
     images: [],
     colors: ["Black", "Brown", "Silver", "White", "Blue"],
-    brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
+    brands: ["RENIAL", "Amitasha", "HILLSTAR", "MANIYA", "ARCHSIGN"],
     color: "White",
-    brand: "Apple",
+    brand: "RENIAL",
 };
 
 const ProductCreate = () => {
