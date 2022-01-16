@@ -79,7 +79,7 @@ const SubCreate = () => {
                 <div className="col-md-2">
                     <AdminNav />
                 </div>
-                <div className="col-md-6">
+                <div className="col">
                     {loading ? (
                         <h4 className="text-danger">Loading..</h4>
                     ) : (

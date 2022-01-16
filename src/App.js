@@ -30,6 +30,7 @@ import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
+import Product from "./pages/Product";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,7 +59,11 @@ function App() {
   return (
     <Router>
       <Navigation />
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        theme="colored"
+      />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -107,6 +112,9 @@ function App() {
         </Route>
         <Route exact path="/admin/product/:slug">
           <ProductUpdate />
+        </Route>
+        <Route exact path="/product/:slug">
+          <Product />
         </Route>
       </Switch>
     </Router >

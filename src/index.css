@@ -9,3 +9,8 @@ li.nav-item a {
 span.ant-badge {
   margin: 8px;
 }
+.slider img,
+.card-image {
+  height: 450px;
+  object-fit: cover;
+}

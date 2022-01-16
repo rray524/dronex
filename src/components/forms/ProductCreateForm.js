@@ -151,6 +151,7 @@ const ProductCreateForm = ({
 
             <br />
             <button className="btn btn-outline-info">Save</button>
+            <hr />
         </form>
     );
 };

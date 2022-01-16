@@ -35,7 +35,7 @@ const Navigation = () => {
         });
     }
     return (
-        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className='justify-content-center'>
+        <Menu onClick={handleClick} selectedKeys={[current]} style={{ lineHeight: "69px" }} mode="horizontal" className='justify-content-center'>
             <Item key="home" icon={<HomeOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
                 <Link to="/">Home</Link>
             </Item>
