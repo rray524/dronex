@@ -33,6 +33,7 @@ import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
+import Shop from "./pages/Shop";
 
 function App() {
   const dispatch = useDispatch();
@@ -123,6 +124,9 @@ function App() {
         </Route>
         <Route exact path="/sub/:slug">
           <SubHome />
+        </Route>
+        <Route exact path="/shop">
+          <Shop />
         </Route>
       </Switch>
     </Router >

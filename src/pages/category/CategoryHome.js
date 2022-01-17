@@ -16,7 +16,7 @@ const CategoryHome = () => {
     useEffect(() => {
         setLoading(true);
         getCategory(slug).then((res) => {
-            console.log(JSON.stringify(res.data, null, 4));
+            // console.log(JSON.stringify(res.data, null, 4));
             setCategory(res.data.category);
             setProducts(res.data.products);
             setLoading(false);

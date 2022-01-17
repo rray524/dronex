@@ -1,5 +1,7 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+
 }
 li.nav-item a {
   font-size: 16px;
@@ -13,4 +15,10 @@ span.ant-badge {
 .card-image {
   height: 450px;
   object-fit: cover;
+}
+input[type="search"] {
+  border: 0;
+}
+input[type="search"]:focus {
+  box-shadow: none;
 }
