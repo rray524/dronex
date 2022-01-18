@@ -6,6 +6,9 @@ import { Link, useHistory } from "react-router-dom";
 import { Card } from "antd";
 import { DollarOutlined, CheckOutlined, SwapOutlined } from "@ant-design/icons";
 import drone from "../imgs/2.png";
+import { createOrder, emptyUserCart } from "../functions/user";
+import { couponApplied } from "../redux/slices/couponSlice";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const StripeCheckout = () => {
     const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const StripeCheckout = () => {
 
     useEffect(() => {
         createPaymentIntent(user.tokenId, coupon).then((res) => {
-            // console.log("create payment intent", res.data);
+            console.log("create payment intent", res.data);
             setClientSecret(res.data.clientSecret);
             // additional response received on successful payment
             setCartTotal(res.data.cartTotal);
@@ -56,6 +59,18 @@ const StripeCheckout = () => {
         } else {
             // here you get result after successful payment
             // create order and save in database for admin to process
+            createOrder(payload, user.tokenId).then((res) => {
+                if (res.data.ok) {
+                    // empty cart from local storage
+                    if (typeof window !== "undefined") localStorage.removeItem("cart");
+                    // empty cart from redux
+                    dispatch(addToCart([]));
+                    // reset coupon to false
+                    dispatch(couponApplied(false));
+                    // empty cart from database
+                    emptyUserCart(user.tokenId);
+                }
+            });
             // empty user cart from redux store and local storage
             console.log(JSON.stringify(payload, null, 4));
             setError(null);
@@ -109,7 +124,6 @@ const StripeCheckout = () => {
                                 height: "200px",
                                 objectFit: "cover",
                                 marginBottom: "-50px",
-
                             }}
                             alt="drone"
                         />
@@ -148,10 +162,10 @@ const StripeCheckout = () => {
                     </div>
                 )}
                 <br />
-                <p className={succeeded ? "result-message" : "result-message hidden"}>
+                <h4 className={succeeded ? "result-message" : "result-message hidden"}>
                     Payment Successful.{" "}
                     <Link to="/user/history">See it in your purchase history.</Link>
-                </p>
+                </h4>
             </form>
         </>
     );
