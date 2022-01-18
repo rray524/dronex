@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
+import { userCart } from "../functions/user";
 
 const Cart = () => {
     const user = useSelector(state => state.user.loggedInUser);
-    const cart = useSelector(state => state.cart.cart);
+    const { cart } = useSelector(state => state.cart);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const getTotal = () => {
         return cart.reduce((currentValue, nextValue) => {
@@ -15,7 +18,13 @@ const Cart = () => {
     };
 
     const saveOrderToDb = () => {
-        //
+        // console.log("cart", JSON.stringify(cart, null, 4));
+        userCart(cart, user.tokenId)
+            .then((res) => {
+                // console.log("CART POST RES", res);
+                if (res.data.ok) history.push("/checkout");
+            })
+            .catch((err) => console.log("cart save err", err));
     };
 
     const showCartItems = () => (
@@ -41,6 +50,7 @@ const Cart = () => {
 
     return (
         <div className="container-fluid pt-2">
+            <br /><br />
             <div className="row">
                 <div className="col-md-8">
                     <h4>Cart / {cart.length} Product</h4>
