@@ -34,6 +34,8 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
+import SideDrawer from "./components/drawer/SideDrawer";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +64,7 @@ function App() {
   return (
     <Router>
       <Navigation />
+      <SideDrawer />
       <ToastContainer
         position="bottom-center"
         autoClose={3000}
@@ -127,6 +130,9 @@ function App() {
         </Route>
         <Route exact path="/shop">
           <Shop />
+        </Route>
+        <Route exact path="/cart">
+          <Cart />
         </Route>
       </Switch>
     </Router >

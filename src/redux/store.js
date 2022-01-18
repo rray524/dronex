@@ -2,6 +2,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import persistReducer from 'redux-persist/es/persistReducer';
 import userReducer from '../redux/slices/userSlice';
 import searchReducer from '../redux/slices/searchSlice';
+import cartReducer from '../redux/slices/cartSlice';
+import drawerReducer from '../redux/slices/drawerSlice';
 import storage from 'redux-persist/lib/storage'
 
 import {
@@ -20,7 +22,7 @@ const persistConfig = {
     storage
 }
 
-const reducers = combineReducers({ user: userReducer, search: searchReducer });
+const reducers = combineReducers({ user: userReducer, search: searchReducer, cart: cartReducer, drawer: drawerReducer });
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
-import { HomeOutlined, UserOutlined, UserAddOutlined, LogoutOutlined, MenuOutlined, SearchOutlined, ShopOutlined } from '@ant-design/icons';
+import { Menu, Badge } from 'antd';
+import { HomeOutlined, UserOutlined, UserAddOutlined, LogoutOutlined, MenuOutlined, SearchOutlined, ShopOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -17,6 +17,7 @@ const Navigation = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.user.loggedInUser);
+    const { cart } = useSelector(state => state.cart);
     // console.log(user);
     const search = useSelector(state => state.search.text);
     const { text } = search;
@@ -52,6 +53,11 @@ const Navigation = () => {
         <Menu onClick={handleClick} selectedKeys={[current]} style={{ lineHeight: "69px" }} mode="horizontal" className='justify-content-center'>
             <Item key="home" icon={<HomeOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
                 <Link to="/">Home</Link>
+            </Item>
+            <Item key="cart" icon={<ShoppingCartOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
+                <Link style={{ fontSize: "18px" }} to="/cart"><Badge count={cart.length} offset={[9, 0]}>
+                    Cart
+                </Badge></Link>
             </Item>
             <Item key="shop" icon={<ShopOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
                 <Link to="/shop">Shop</Link>
