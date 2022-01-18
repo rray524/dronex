@@ -14,6 +14,7 @@
     "lodash": "^4.17.21",
     "mdb-react-ui-kit": "^2.2.0",
     "react": "^17.0.2",
+    "react-datepicker": "^4.6.0",
     "react-dom": "^17.0.2",
     "react-image-file-resizer": "^0.4.7",
     "react-modal-image": "^2.5.0",
