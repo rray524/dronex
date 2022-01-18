@@ -16,7 +16,7 @@ const History = () => {
 
     const loadUserOrders = () =>
         getUserOrders(user.tokenId).then((res) => {
-            console.log(JSON.stringify(res.data, null, 4));
+            // console.log(JSON.stringify(res.data, null, 4));
             setOrders(res.data);
         });
 
@@ -56,16 +56,14 @@ const History = () => {
         </table>
     );
 
+
+
     const showEachOrders = () =>
         orders.map((order, i) => (
-            <div key={i} className="m-5 p-3 card">
+            <div key={i} className="my-5 p-3 card">
                 <ShowPaymentInfo order={order} />
                 {showOrderInTable(order)}
-                <div className="row">
-                    <div className="col">
-                        <p>PDF download</p>
-                    </div>
-                </div>
+
             </div>
         ));
 

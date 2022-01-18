@@ -55,7 +55,7 @@ const Navigation = () => {
                 <Link to="/">Home</Link>
             </Item>
             <Item key="cart" icon={<ShoppingCartOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>
-                <Link style={{ fontSize: "18px" }} to="/cart"><Badge count={cart.length} offset={[9, 0]}>
+                <Link style={{ fontSize: "18px" }} to="/cart"><Badge style={{ fontSize: "18px" }} count={cart.length} offset={[9, 0]}>
                     Cart
                 </Badge></Link>
             </Item>
