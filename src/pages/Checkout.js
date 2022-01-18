@@ -29,7 +29,7 @@ const Checkout = () => {
 
     useEffect(() => {
         getUserCart(user.tokenId).then((res) => {
-            console.log("user cart res", JSON.stringify(res.data, null, 4));
+            // console.log("user cart res", JSON.stringify(res.data, null, 4));
             setProducts(res.data.products);
             setTotal(res.data.cartTotal);
         });
