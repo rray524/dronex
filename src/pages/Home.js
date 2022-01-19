@@ -7,6 +7,7 @@ import SubList from "../components/sub/SubList";
 
 const Home = () => {
 
+
     return (
         <>
             <div className="jumbotron text-danger h1 font-weight-bold text-center">

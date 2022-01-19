@@ -39,6 +39,7 @@ import SideDrawer from "./components/drawer/SideDrawer";
 import Checkout from "./pages/Checkout";
 import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
 import Payment from "./pages/Payment";
+import PasswordChange from "./pages/admin/PasswordChange";
 
 function App() {
   const dispatch = useDispatch();
@@ -124,6 +125,9 @@ function App() {
         </Route>
         <Route exact path="/admin/coupon">
           <CreateCouponPage />
+        </Route>
+        <Route exact path="/admin/password">
+          <PasswordChange />
         </Route>
         <Route exact path="/product/:slug">
           <Product />

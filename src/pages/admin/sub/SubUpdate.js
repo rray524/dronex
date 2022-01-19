@@ -75,7 +75,7 @@ const SubUpdate = () => {
                             <option>Please select</option>
                             {categories.length > 0 &&
                                 categories.map((c) => (
-                                    <option key={c._id} value={c._id} selected={c._id === parent}>
+                                    <option key={c._id} value={c._id} defaultValue={c._id === parent}>
                                         {c.name}
                                     </option>
                                 ))}
