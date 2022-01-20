@@ -6,7 +6,7 @@ import {
 import { getCategories } from "../functions/category";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
-import { Menu, Slider, Checkbox, Radio } from "antd";
+import { Menu, Slider, Checkbox, Radio, Spin } from "antd";
 import {
     DollarOutlined,
     DownSquareOutlined,
@@ -197,8 +197,9 @@ const Shop = () => {
 
     // 7. show products based on brand name
     const showBrands = () =>
-        brands.map((b) => (
+        brands.map((b, idx) => (
             <Radio
+                key={idx}
                 value={b}
                 name={b}
                 checked={b === brand}
@@ -223,8 +224,9 @@ const Shop = () => {
 
     // 8. show products based on color
     const showColors = () =>
-        colors.map((c) => (
+        colors.map((c, idx) => (
             <Radio
+                key={idx}
                 value={c}
                 name={c}
                 checked={c === color}
@@ -393,20 +395,22 @@ const Shop = () => {
 
                 <div className="col-md-9 pt-2">
                     {loading ? (
-                        <h4 className="text-danger">Loading...</h4>
+                        <div className="example">
+                            <Spin />
+                        </div>
                     ) : (
                         <h4 className="text-danger">Products</h4>
                     )}
 
                     {products.length < 1 && <p>No products found</p>}
 
-                    <div className="row pb-5">
+                    {!loading && <div className="row pb-5">
                         {products.map((p) => (
                             <div key={p._id} className="col-md-4 mt-3">
                                 <ProductCard product={p} />
                             </div>
                         ))}
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>
