@@ -20,7 +20,7 @@
 
 <hr style="border:2px solid gray"> </hr>
 
-## I have used the following technology for this agency website:
+## I have used the following technology for this React app:
 - React 
 - antd
 - Firebase
