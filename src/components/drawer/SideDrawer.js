@@ -7,9 +7,9 @@ import { showOrHide } from "../../redux/slices/drawerSlice";
 
 const SideDrawer = () => {
     const dispatch = useDispatch();
-    const { cart } = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.cart);
     const drawer = useSelector(state => state.drawer.showHide);
-    console.log(drawer);
+    console.log(cart);
 
     const imageStyle = {
         width: "100%",
@@ -28,19 +28,20 @@ const SideDrawer = () => {
             }}
             visible={drawer}
         >
-            {cart.map((p) => (
+
+            {cart?.map(p => (
                 <div key={p._id} className="row">
                     <div className="col">
                         {p.images[0] ? (
                             <>
-                                <img src={p.images[0].url} style={imageStyle} />
+                                <img src={p.images[0].url} style={imageStyle} alt="img" />
                                 <p className="text-center bg-secondary text-light">
                                     {p.title} x {p.count}
                                 </p>
                             </>
                         ) : (
                             <>
-                                <img src={laptop} style={imageStyle} />
+                                <img src={laptop} style={imageStyle} alt="img" />
                                 <p className="text-center bg-secondary text-light">
                                     {p.title} x {p.count}
                                 </p>
