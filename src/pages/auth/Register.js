@@ -10,7 +10,7 @@ const Register = () => {
     const history = useHistory();
     const user = useSelector(state => state.user.loggedInUser);
     useEffect(() => {
-        if (user) {
+        if (user && user.tokenId) {
             history.push("/");
         }
     }, [user, history]);
