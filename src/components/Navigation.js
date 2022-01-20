@@ -73,7 +73,7 @@ const Navigation = () => {
             {!user?.email && <Item key="register" icon={<UserAddOutlined />} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}><Link to="/registration">Register</Link></Item>
             }
             {user?.email && <Item key="logout" icon={<LogoutOutlined />} onClick={logout} style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}><Link to="/logout">Logout</Link></Item>}
-            {user && <div style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>{< UserAddOutlined />} <p style={{ display: 'flex', alignItems: 'center', fontSize: "18px", margin: "0 6px 0 8px", textTransform: 'capitalize' }}> {user?.email?.split("@")[0]}</p></div>}
+            {user?.email && <div style={{ display: 'flex', alignItems: 'center', fontSize: "18px" }}>{< UserAddOutlined />} <p style={{ display: 'flex', alignItems: 'center', fontSize: "18px", margin: "0 6px 0 8px", textTransform: 'capitalize' }}> {user?.email?.split("@")[0]}</p></div>}
             <form className="form-inline my-2 my-lg-0 mx-4" onSubmit={handleSubmit}>
                 <input
                     onChange={handleChange}
