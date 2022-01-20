@@ -13,10 +13,11 @@
 - Drone selling App based on React & Node.js api.
 - Admin Dashboard ( Admin can add product, edit product, delete product. It can add/edit/delete category & subcategory. It can add cupon discount with expiry date. It can update password. It can check all orders and can process them.)
 - User Dashboard ( User can check order history & can track order. It can see it's wishlist of product and update own password)
-- Customer can add to cart product(drone) and buy them paying via STRIPE PAYMENT GATEWAY
+- Customer can add to cart product(drone) and it show's a notification on cart page as badge of how many product has been added and buy them paying via STRIPE PAYMENT GATEWAY. User need to save Delivery address and can apply cupon if available.
 - Product single view page and underneath it shows related products.
 - SHOP page with advanged filtering system. It can filter by price range, category/subcategory, color, brand name etc.
 - A customer can SEARCH product by drone name as well. 
+- A user can Rate any product and edit their rating Later.
 
 <hr style="border:2px solid gray"> </hr>
 
